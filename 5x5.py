@@ -1,5 +1,5 @@
-import pygame, music, player_movement
-import game_initializer as initializer
+import pygame, initialize_game.music as music, player_movement
+import initialize_game.game_initializer as initializer
 
 # uses game_initializer module to define the screen dimensions, FPS, and draws the grid to the screen
 screen, clock = initializer.pygame_initialize()
