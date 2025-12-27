@@ -6,7 +6,7 @@ screen, clock = initializer.pygame_initialize()
 initializer.draw_5x5_grid(screen)
 
 # starts playing a song
-songpath = "pygamesong.mp3"
+songpath = ["songs\\pygamesong.mp3", "songs\\pygamesong2.mp3"]
 music.song_playback(songpath)
 # player position will be set to the middle of the screen
 player_pos = [screen.get_width() / 2, screen.get_height() / 2]
