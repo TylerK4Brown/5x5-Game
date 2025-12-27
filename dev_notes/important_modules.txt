@@ -1,0 +1,25 @@
+1. TO INITALIZE A PYGAME GAME:
+- import PyGame
+- run pygame.init()
+- set up the screen with pygame.display.set_mode(size=(width, height))
+- set up the framerate with pygame.time.Clock() (cap at 60 for our purposes)
+
+2. TO PLAY A SONG IN PYGAME:
+- load the song with pygame.mixer.music.load("songfile.mp3")
+- play the song with pygame.mixer.music.play(-1)  # -1 means loop indefinitely
+- you can also specify the starting position by doing pygame.mixer.music.play(-1, start=pos_in_seconds)
+
+3. TO CHECK THE PLAYBACK TIME OF A SONG:
+- use pygame.mixer.music.get_pos() to get the current playback time in milliseconds
+
+4. GETTING THE MIDDLE OF THE SCREEN:
+- use screen.get_width() and screen.get_height() to get the dimensions of the screen
+- calculate the middle with (width//2, height//2)
+
+5. DRAWING A RECTANGLE IN PYGAME:
+- use pygame.draw.rect(surface, color, rect, width=0)
+- SURFACE: just the screen variable
+- COLOR: string definition of the color, "white"
+- RECT: Rect(left, top, width, height), where left and top are the coordinates of the top-left corner
+    - for this I would highly recommend using pygame.Rect() to create the rect object
+- WIDTH: thickness of the rectangle border; if 0, the rectangle is filled
