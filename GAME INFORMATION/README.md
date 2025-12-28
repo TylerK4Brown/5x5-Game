@@ -4,7 +4,15 @@
    #
    Python installation (this game uses 3.12.10 since 3.14 does not support PyGame): https://www.python.org/downloads/
    #
-   PyGame installation: python3.12 pip install pygame-ce
+   PyGame installation: pip install pygame-ce
 
-2. When running 5x5.py, make sure to run it using 'python3.12 5x5.py'
-3. Enjoy the game!
+2. Once you have these installed, you will need the following files to run the game properly:
+# 
+ - 5x5.py (main file, you'll run the game using this file)
+ - obstacles.py
+ - player_movement.py
+ - **initialize_game** folder
+ - **songs** folder
+#
+3. Use the command python3.12 5x5.py to run the game
+4. Enjoy..?
