@@ -11,6 +11,7 @@
  - 5x5.py (main file, you'll run the game using this file)
  - obstacles.py
  - player_movement.py
+ - speedsuprised.png (so that the icon will load properly)
  - **initialize_game** folder
  - **songs** folder
 #
