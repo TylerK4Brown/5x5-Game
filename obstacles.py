@@ -1,23 +1,45 @@
-# creating a class that defines how an obstacle should spawn
-# each obstacle will have coordinates and timestamps along with them
-#
-# obstacle_coords: a nested list ([[]]), where:
-# - the inner list contains x,y coordinates of where the obstacle should be placed
-# - the outer list contains the listing of these x,y coordinates
-# 
-# timestamps: a single list with 3 values:
-# - warning_timestamp: the first value in this list, which spawns a warning box around the grid spaces that will be impacted
-# - active_timestamp – the second value in this list, which spawns the hitbox to the screen at this timestamp
-# - fadeout_timestamp - the final value in this list to determine when the hitbox should fade off the screen
+# every queue item should follow this exact format (eventually)
+# (timestamp, type_of_obstacle, obstacle_stage, [x,y])
 
-class Obstacles:
-    def __init__(self, obstacle_coords: list, timestamps: list):
-        self.occupied_spaces = obstacle_coords
-        self.timestamps = timestamps
+from collections import deque
+from initialize_game import music
+import pygame
+
+# queued elements that follow this format (for right now):
+# [(timestamp(ms), [x,y])]
+# this is just to test if it works
+def queue_item(obstacle_def: list):
+    queue = deque([(obstacle_def[0], obstacle_def[1])])
+    queue.append((737, [200, 100]))
+    queue.append((1164, [200, 300]))
+    queue.append((1680, [400, 100]))
+    queue.append((1930, [400, 200]))
+    queue.append((2200, [400, 300]))
+    queue.append((2328, [300, 100]))
+    queue.append((2856, [250, 150]))
+    queue.append((3293, [350, 250]))
+    queue.append((3780, [350, 150]))
+    queue.append((3940, [250, 250]))
+    queue.append((4170, [300, 300]))
+    return queue
+
+def check_obstacle(obstacle_queue, img_surface, screen):
+    # if there's nothing in the queue, don't proceed
+    if len(obstacle_queue) == 0:
+        return None
     
-    # TODO: add obstacles to the screen based on the input coordinates for any given object
-    def add_obstacle(self, occupied_spaces):
-        pass
-    
-obstacle = Obstacles([[200,150], [100, 150]], [1, 1.5, 2])
-print(obstacle.timestamps)
+    # checks the playback time - if the playback time matches the top queue element:
+    # 1. remove that element from the queue
+    # 2. draw the specific obstacle at the specified grid space
+    current_time = music.check_playback_time()
+    if current_time >= obstacle_queue[0][0]:
+        obstacle_def = obstacle_queue.popleft()
+        grid_space = obstacle_def[1] # this holds the coordinates of the obstacle
+        screen.blit(img_surface, (grid_space[0] - 15, grid_space[1] - 15))
+        #pygame.draw.rect(screen, "red", pygame.Rect(grid_space[0] - 15, grid_space[1] - 15, 30, 30), width=0)
+
+# obstacle_def = [1100, "hi"]
+# obstacle_queue = queue_item(obstacle_def)
+
+# text = check_obstacle(obstacle_queue)
+# print(text)
