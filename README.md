@@ -1,4 +1,4 @@
-# TO LEARN MORE ABOUT THIS GAME, VIEW THE "5x5 Info Sheet WIP" PDF ATTACHED TO THIS REPO!
+# TO LEARN MORE ABOUT THIS GAME, VIEW THE "5x5 Info Sheet WIP" PDF IN "GAME INFORMATION"!
 # To run this game:
 1. Make sure that you have Python and PyGame-ce installed on your computer
    #
