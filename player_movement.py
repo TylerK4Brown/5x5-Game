@@ -6,8 +6,9 @@
 
 import pygame
 
+# refresh the grid space so that the icon does not leave a trail
 def redraw(player_pos, screen):
-    pygame.draw.rect(screen, "black", pygame.Rect(player_pos[0] - 12.5, player_pos[1] - 12.5, 30, 30), width=0)
+    pygame.draw.rect(screen, "black", pygame.Rect(player_pos[0] - 15, player_pos[1] - 15, 30, 30), width=0)
     pygame.draw.circle(screen, "white", [player_pos[0], player_pos[1]], 5)
 
 def move_player(player_pos, screen):
