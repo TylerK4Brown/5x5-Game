@@ -20,7 +20,6 @@ def move_player(player_pos, screen):
         else:
             redraw(player_pos, screen)
             player_pos[1] -= 50
-            print(player_pos)
             pygame.display.flip()
     
     if keys[pygame.K_s]:
@@ -29,7 +28,6 @@ def move_player(player_pos, screen):
         else:
             redraw(player_pos, screen)
             player_pos[1] += 50
-            print(player_pos)
             pygame.display.flip()
         
     if keys[pygame.K_a]:
@@ -38,7 +36,6 @@ def move_player(player_pos, screen):
         else:
             redraw(player_pos, screen)
             player_pos[0] -= 50
-            print(player_pos)
             pygame.display.flip()
             
     if keys[pygame.K_d]:
@@ -47,7 +44,6 @@ def move_player(player_pos, screen):
         else:
             redraw(player_pos, screen)
             player_pos[0] += 50
-            print(player_pos)
             pygame.display.flip()
 
     return player_pos
