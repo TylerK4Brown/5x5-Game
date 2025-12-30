@@ -8,45 +8,46 @@ import pygame
 # queued elements that follow this format (for right now):
 # [(timestamp(ms), [x,y])]
 # this is just to test if it works
-def queue_item(obstacle_def: list): 
+def queue_item(obstacle_def: list) -> deque: 
     # eventual implementation I'm tryna figure it out
     queue = deque(obstacle_def)
     return queue
 
-def check_obstacle(obstacle_queue, obstacle_img_surface, screen):
+# Checks if an obstacle should spawn on the screen based on the song playback
+# If an obstacle should spawn, add it to the screen and append its pygame.Rect object definition to the obstacle_list
+def check_obstacle(obstacle_queue: deque, obstacle_img_surface, screen, obstacle_list: list) -> list:
     # if there's nothing in the queue, don't proceed
     if len(obstacle_queue) == 0:
-        return None
+        return obstacle_list
     
     # checks the playback time - if the playback time matches the top queue element:
     # 1. remove that element from the queue
     # 2. draw the specific obstacle at the specified grid space
+    # 3. append the rect of the hitbox to a running list of rects - this will be used to detect collision
     current_time = music.check_playback_time()
     if current_time >= obstacle_queue[0][0]:
+        # dequeue the top most element, get the grid space information from the 1st index in the tuple
         obstacle_def = obstacle_queue.popleft()
-        grid_space = obstacle_def[1] # this holds the coordinates of the obstacle
+        grid_space = obstacle_def[1] 
+        # add the obstacle to the screen, create a hitbox rect at that grid space
         screen.blit(obstacle_img_surface, (grid_space[0] - 15, grid_space[1] - 15))
-        #pygame.draw.rect(screen, "red", pygame.Rect(grid_space[0] - 15, grid_space[1] - 15, 30, 30), width=0)
+        hitbox = pygame.Rect(grid_space[0] - 15, grid_space[1] - 15, 30, 30)
+        # draws the hitbox to the screen (not necessary later on - just for visuals rn)
+        pygame.draw.rect(screen, "red", hitbox, width=2)
+        obstacle_list.append(hitbox)
+        
+    return obstacle_list
 
+# Checks if the player hitbox is currently interacting with another hitbox on screen
+# Rect.collidelist holds all the obstacles currently on screen
+# hitbox holds the player's position as a Rect
+def check_hitbox_interaction(hitbox, obstacle_list: list) -> list:
+    # if the obstacle_list is empty, return
+    if len(obstacle_list) == 0:
+        return obstacle_list
 
-
-# obstacle_def = [1100, "hi"]
-# obstacle_queue = queue_item(obstacle_def)
-
-# text = check_obstacle(obstacle_queue)
-# print(text)
-
-# old logic that I'm keeping for now in case this shit breaks
-    # queue = deque([(obstacle_def[0], obstacle_def[1])])
+    if pygame.Rect.collidelist(hitbox, obstacle_list) != -1:
+        print(f"Collision detected at {hitbox}")
+        obstacle_list.remove(hitbox)
     
-    # queue.append((737, [200, 100]))
-    # queue.append((1164, [200, 300]))
-    # queue.append((1680, [400, 100]))
-    # queue.append((1930, [400, 200]))
-    # queue.append((2200, [400, 300]))
-    # queue.append((2328, [300, 100]))
-    # queue.append((2856, [250, 150]))
-    # queue.append((3293, [350, 250]))
-    # queue.append((3780, [350, 150]))
-    # queue.append((3940, [250, 250]))
-    # queue.append((4170, [300, 300]))
+    return obstacle_list

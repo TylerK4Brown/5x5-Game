@@ -16,14 +16,13 @@ def main():
     # player position will be set to the middle of the screen
     player_pos = [screen.get_width() / 2, screen.get_height() / 2]
 
-    # load speed, transform speed so that he fits onto the grid
+    # load speed icon to the screeen, transform speed so that he fits onto the grid
     img_surface = pygame.image.load("speedsuprised.png", namehint="png")
     img_surface = pygame.transform.scale(img_surface, (30, 30))
 
     # load the obstacle image to the screen (right now it is pingas)
     image = "pingas_obstacle.png"
     obstacle_img_surface = pygame.image.load(image, namehint="png")
-
     # TODO: test obstacle sizes to see which ones fit better in the program
     obstacle_img_surface = pygame.transform.scale(obstacle_img_surface, (30, 30))
 
@@ -37,7 +36,8 @@ def main():
     obstacle_queue = obstacles.queue_item(obstacle_def)
     # FPS of the game
     clock.tick(60)
-
+    # list of obstacles present on the screen
+    obstacle_list = []
     # game running logic
     running = True
     while running:
@@ -48,19 +48,23 @@ def main():
         
         # draw the player icon at the middle of the screen
         screen.blit(img_surface, (player_pos[0] - 15, player_pos[1] - 15))
-        # old code for an icon that isn't IShowSpeed
-        #pygame.draw.rect(screen, "red", pygame.Rect(player_pos[0] - 12.5, player_pos[1] - 12.5, 25, 25), width=0)
+        # defines and draws the hitbox for Speed using a rect
+        hitbox = pygame.Rect(player_pos[0] - 15, player_pos[1] - 15, 30, 30)
+        pygame.draw.rect(screen, "green", hitbox, width=2)
         
         # move the player with WASD controls
         player_movement.move_player(player_pos, screen)
         # check if an obstacle should spawn
-        obstacles.check_obstacle(obstacle_queue, obstacle_img_surface, screen)
+        obstacle_list = obstacles.check_obstacle(obstacle_queue, obstacle_img_surface, screen, obstacle_list)
+        # check if speed is interacting with an obstacle
+        obstacle_list = obstacles.check_hitbox_interaction(hitbox, obstacle_list)
+        
+        # test code that I'm keeping here for now
         # checktime = music.check_playback_time()
         # print(checktime)
         
         # update the screen, 
         pygame.display.flip()
-
     pygame.quit()
 
 if __name__ == "__main__":
