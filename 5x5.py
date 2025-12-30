@@ -2,6 +2,7 @@ import pygame, initialize_game.music as music, player_movement
 import obstacle_info.obstacle_queues as obstacle_queues
 import initialize_game.game_initializer as initializer
 import obstacle_info.obstacles as obstacles
+import random
 
 # uses game_initializer module to define the screen dimensions, FPS, and draw the grid to the screen
 screen, clock = initializer.pygame_initialize()
@@ -17,6 +18,13 @@ player_pos = [screen.get_width() / 2, screen.get_height() / 2]
 # load speed, transform speed so that he fits onto the grid
 img_surface = pygame.image.load("speedsuprised.png", namehint="png")
 img_surface = pygame.transform.scale(img_surface, (30, 30))
+
+# load the obstacle image to the screen (right now it is pingas)
+image = "pingas_obstacle.png"
+obstacle_img_surface = pygame.image.load(image, namehint="png")
+
+# TODO: test obstacle sizes to see which ones fit better in the program
+obstacle_img_surface = pygame.transform.scale(obstacle_img_surface, (30, 30))
 
 # naming the window and setting the icon
 pygame.display.set_caption("IShowSpeed on a 5x5 grid")
@@ -45,7 +53,7 @@ while running:
     # move the player with WASD controls
     player_movement.move_player(player_pos, screen)
     # check if an obstacle should spawn
-    obstacles.check_obstacle(obstacle_queue, img_surface, screen)
+    obstacles.check_obstacle(obstacle_queue, obstacle_img_surface, screen)
     # checktime = music.check_playback_time()
     # print(checktime)
     

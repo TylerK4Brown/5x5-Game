@@ -13,7 +13,7 @@ def queue_item(obstacle_def: list):
     queue = deque(obstacle_def)
     return queue
 
-def check_obstacle(obstacle_queue, img_surface, screen):
+def check_obstacle(obstacle_queue, obstacle_img_surface, screen):
     # if there's nothing in the queue, don't proceed
     if len(obstacle_queue) == 0:
         return None
@@ -25,7 +25,7 @@ def check_obstacle(obstacle_queue, img_surface, screen):
     if current_time >= obstacle_queue[0][0]:
         obstacle_def = obstacle_queue.popleft()
         grid_space = obstacle_def[1] # this holds the coordinates of the obstacle
-        screen.blit(img_surface, (grid_space[0] - 15, grid_space[1] - 15))
+        screen.blit(obstacle_img_surface, (grid_space[0] - 15, grid_space[1] - 15))
         #pygame.draw.rect(screen, "red", pygame.Rect(grid_space[0] - 15, grid_space[1] - 15, 30, 30), width=0)
 
 
