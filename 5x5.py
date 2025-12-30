@@ -1,6 +1,7 @@
-import pygame, initialize_game.music as music, player_movement, obstacle_queues
+import pygame, initialize_game.music as music, player_movement
+import obstacle_info.obstacle_queues as obstacle_queues
 import initialize_game.game_initializer as initializer
-import obstacles
+import obstacle_info.obstacles as obstacles
 
 # uses game_initializer module to define the screen dimensions, FPS, and draw the grid to the screen
 screen, clock = initializer.pygame_initialize()
