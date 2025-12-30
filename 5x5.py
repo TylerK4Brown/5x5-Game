@@ -26,7 +26,6 @@ pygame.display.set_icon(img_surface)
 # this is then added to a queue of obstacles that should appear
 obstacle_def = obstacle_queues.queue_storage("hiiiii")
 obstacle_queue = obstacles.queue_item(obstacle_def)
-print(obstacle_queue)
 # FPS of the game
 clock.tick(60)
 
