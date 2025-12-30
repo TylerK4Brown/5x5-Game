@@ -1,4 +1,4 @@
-import pygame, initialize_game.music as music, player_movement
+import pygame, initialize_game.music as music, player_movement, obstacle_queues
 import initialize_game.game_initializer as initializer
 import obstacles
 
@@ -23,8 +23,9 @@ pygame.display.set_icon(img_surface)
 
 # obstacles are defined by the timestamp in milliseconds and which grid space it should appear on
 # this is then added to a queue of obstacles that should appear
-obstacle_def = [150, [200,200]]
+obstacle_def = obstacle_queues.queue_storage("hiiiii")
 obstacle_queue = obstacles.queue_item(obstacle_def)
+print(obstacle_queue)
 # FPS of the game
 clock.tick(60)
 
