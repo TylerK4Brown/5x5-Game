@@ -4,6 +4,7 @@
 from obstacle_info import end_game
 from collections import deque
 from initialize_game import music
+from time import sleep
 import pygame
 
 # queued elements that follow this format (for right now):
@@ -45,23 +46,26 @@ def check_obstacle(obstacle_queue: deque, obstacle_img_surface, screen, obstacle
 def check_hitbox_interaction(hitbox, obstacle_list: list, screen, running) -> list:
     # if the obstacle_list is empty, return
     if len(obstacle_list) == 0:
-        return obstacle_list
+        return obstacle_list, running
 
+    # if the user collides with an obstacle, end the game
+    # TODO: create an endless game loop unless the user presses the x button on the window
     if pygame.Rect.collidelist(hitbox, obstacle_list) != -1:
+        # pause the game for a second when the player runs into a hitbox
+        sleep(1)
         print(f"Collision detected at {hitbox}")
         obstacle_list.remove(hitbox)
         # redraw the screen as black
         screen.fill("black")
+        # creates a new text object, renders it as a surface and displays the text at the middle of the screen
+        text = pygame.font.SysFont('timesnewroman', 35)
+        text_surface = text.render("GAME OVER", True, (255,255,255), None)
+        text_rect = text_surface.get_rect()
+        screen.blit(text_surface, (300 - (text_rect[2] // 2), 200 - (text_rect[3] // 2)))
+        
+        # stop the music, update the screen, set the running variable to false
         pygame.mixer.music.stop()
         pygame.display.flip()
-        i = 0
-        while running:
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    pygame.quit()
-            if i == 0:
-                print("Game over!")
-                #end_game.game_over()
-                i += 1
+        running = False
                     
-    return obstacle_list
+    return obstacle_list, running

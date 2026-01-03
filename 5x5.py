@@ -58,7 +58,7 @@ def main():
         # check if an obstacle should spawn
         obstacle_list = obstacles.check_obstacle(obstacle_queue, obstacle_img_surface, screen, obstacle_list)
         # check if speed is interacting with an obstacle
-        obstacle_list = obstacles.check_hitbox_interaction(hitbox, obstacle_list, screen, running)
+        obstacle_list, running = obstacles.check_hitbox_interaction(hitbox, obstacle_list, screen, running)
         
         # test code that I'm keeping here for now
         # checktime = music.check_playback_time()
@@ -66,7 +66,11 @@ def main():
         
         # update the screen, 
         pygame.display.flip()
-    pygame.quit()
+    
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
 
 if __name__ == "__main__":
     main()
