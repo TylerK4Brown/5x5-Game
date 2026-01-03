@@ -53,6 +53,7 @@ def check_hitbox_interaction(hitbox, obstacle_list: list, screen, running) -> li
         # redraw the screen as black
         screen.fill("black")
         pygame.mixer.music.stop()
+        pygame.display.flip()
         i = 0
         while running:
             for event in pygame.event.get():
