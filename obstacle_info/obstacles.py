@@ -1,6 +1,7 @@
 # every queue item should follow this exact format (eventually)
 # (timestamp, type_of_obstacle, obstacle_stage, [x,y])
 
+from obstacle_info import end_game
 from collections import deque
 from initialize_game import music
 import pygame
@@ -41,7 +42,7 @@ def check_obstacle(obstacle_queue: deque, obstacle_img_surface, screen, obstacle
 # Checks if the player hitbox is currently interacting with another hitbox on screen
 # Rect.collidelist holds all the obstacles currently on screen
 # hitbox holds the player's position as a Rect
-def check_hitbox_interaction(hitbox, obstacle_list: list) -> list:
+def check_hitbox_interaction(hitbox, obstacle_list: list, screen, running) -> list:
     # if the obstacle_list is empty, return
     if len(obstacle_list) == 0:
         return obstacle_list
@@ -49,5 +50,17 @@ def check_hitbox_interaction(hitbox, obstacle_list: list) -> list:
     if pygame.Rect.collidelist(hitbox, obstacle_list) != -1:
         print(f"Collision detected at {hitbox}")
         obstacle_list.remove(hitbox)
-    
+        # redraw the screen as black
+        screen.fill("black")
+        pygame.mixer.music.stop()
+        i = 0
+        while running:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+            if i == 0:
+                print("Game over!")
+                #end_game.game_over()
+                i += 1
+                    
     return obstacle_list

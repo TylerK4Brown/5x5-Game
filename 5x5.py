@@ -16,7 +16,7 @@ def main():
     # player position will be set to the middle of the screen
     player_pos = [screen.get_width() / 2, screen.get_height() / 2]
 
-    # load speed icon to the screeen, transform speed so that he fits onto the grid
+    # load speed icon, transform speed so that he fits onto the grid
     img_surface = pygame.image.load("speedsuprised.png", namehint="png")
     img_surface = pygame.transform.scale(img_surface, (30, 30))
 
@@ -45,9 +45,10 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
-        
+                
         # draw the player icon at the middle of the screen
         screen.blit(img_surface, (player_pos[0] - 15, player_pos[1] - 15))
+        
         # defines and draws the hitbox for Speed using a rect
         hitbox = pygame.Rect(player_pos[0] - 15, player_pos[1] - 15, 30, 30)
         pygame.draw.rect(screen, "green", hitbox, width=2)
@@ -57,7 +58,7 @@ def main():
         # check if an obstacle should spawn
         obstacle_list = obstacles.check_obstacle(obstacle_queue, obstacle_img_surface, screen, obstacle_list)
         # check if speed is interacting with an obstacle
-        obstacle_list = obstacles.check_hitbox_interaction(hitbox, obstacle_list)
+        obstacle_list = obstacles.check_hitbox_interaction(hitbox, obstacle_list, screen, running)
         
         # test code that I'm keeping here for now
         # checktime = music.check_playback_time()
