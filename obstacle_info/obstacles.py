@@ -52,8 +52,11 @@ def check_hitbox_interaction(hitbox, obstacle_list: list, screen, running) -> li
     # TODO: create an endless game loop unless the user presses the x button on the window
     if pygame.Rect.collidelist(hitbox, obstacle_list) != -1:
         # pause the game for a second when the player runs into a hitbox
-        sleep(1)
         print(f"Collision detected at {hitbox}")
+        # stop the music, update the screen, set the running variable to false
+        pygame.mixer.music.stop()
+        pygame.display.flip()
+        sleep(0.5)
         obstacle_list.remove(hitbox)
         # redraw the screen as black
         screen.fill("black")
@@ -62,10 +65,6 @@ def check_hitbox_interaction(hitbox, obstacle_list: list, screen, running) -> li
         text_surface = text.render("GAME OVER", True, (255,255,255), None)
         text_rect = text_surface.get_rect()
         screen.blit(text_surface, (300 - (text_rect[2] // 2), 200 - (text_rect[3] // 2)))
-        
-        # stop the music, update the screen, set the running variable to false
-        pygame.mixer.music.stop()
-        pygame.display.flip()
         running = False
                     
     return obstacle_list, running
