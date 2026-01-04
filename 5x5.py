@@ -1,10 +1,10 @@
 # test change to the branch
-import pygame, initialize_game.music as music, player_movement
+import pygame
+import initialize_game.music as music
+import player_movement
 import obstacle_info.obstacle_queues as obstacle_queues
 import initialize_game.game_initializer as initializer
-import obstacle_info.obstacle_func as obstacle_func
 from obstacle_info.Obstacle_oop import Obstacles
-import random
 
 def main():
     # uses game_initializer module to define the screen dimensions, FPS, and draw the grid to the screen
@@ -53,15 +53,15 @@ def main():
         screen.blit(img_surface, (player_pos[0] - 15, player_pos[1] - 15))
         
         # defines and draws the hitbox for Speed using a rect
-        hitbox = pygame.Rect(player_pos[0] - 15, player_pos[1] - 15, 30, 30)
-        pygame.draw.rect(screen, "green", hitbox, width=2)
+        player_hurtbox = pygame.Rect(player_pos[0] - 15, player_pos[1] - 15, 30, 30)
+        pygame.draw.rect(screen, "green", player_hurtbox, width=2)
         
         # move the player with WASD controls
         player_movement.move_player(player_pos, screen)
         # check if an obstacle should spawn
         obstacles.spawn_obstacle(screen)
         # check if speed is interacting with an obstacle
-        running = obstacles.check_hitbox_interaction(hitbox)
+        running = obstacles.check_hitbox_interaction(player_hurtbox)
         
         # test code that I'm keeping here for now
         # checktime = music.check_playback_time()
