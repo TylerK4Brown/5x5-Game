@@ -67,10 +67,13 @@ def main():
         # update the screen, 
         pygame.display.flip()
     
-    while True:
+    close = False
+    while not close:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                pygame.quit()
+                close = True
+    
+    pygame.quit()
 
 if __name__ == "__main__":
     main()
