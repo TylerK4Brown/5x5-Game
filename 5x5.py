@@ -32,11 +32,11 @@ def main():
 
     # obstacles are defined by the timestamp in milliseconds and which grid space it should appear on
     # this is then added to a queue of obstacles that should appear
-    obstacle_def = obstacle_queues.queue_storage("hiiiii")
+    obstacle_def = obstacle_queues.queue_storage("placeholder")
     obstacle_queue = obstacles.queue_item(obstacle_def)
     # FPS of the game
     clock.tick(60)
-    # list of obstacles present on the screen
+    # list of obstacles present on the screen, a list of Rect coordinates
     obstacle_list = []
     # game running logic
     running = True
