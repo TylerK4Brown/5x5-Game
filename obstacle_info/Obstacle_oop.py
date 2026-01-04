@@ -4,14 +4,19 @@ from initialize_game import music
 
 class Obstacles:
     obstacle_list = []
+    obstacle_img_surface = None
     
     # idea:
     # have a function that defines the queue items depending on which song is called
     # pass that queue into this class as a constructor
-    def __init__(self, obstacle_img_surface, obstacle_queue: deque):
-        self.obstacle_img_surface = obstacle_img_surface
+    def __init__(self, obstacle_queue: deque):
         self.obstacle_queue = obstacle_queue
     
+    def load_obstacle_img(self):
+        image = "pingas_obstacle.png"
+        self.obstacle_img_surface = pygame.image.load(image, namehint="png")
+        self.obstacle_img_surface = pygame.transform.scale(self.obstacle_img_surface, (30, 30))
+        
     def spawn_obstacle(self, screen):
         if len(self.obstacle_queue) == 0:
             return

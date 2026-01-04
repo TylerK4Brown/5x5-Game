@@ -21,26 +21,20 @@ def main():
     # load speed icon, transform speed so that he fits onto the grid
     img_surface = pygame.image.load("speedsuprised.png", namehint="png")
     img_surface = pygame.transform.scale(img_surface, (30, 30))
-    
-    # load the obstacle image to the screen (right now it is pingas)
-    image = "pingas_obstacle.png"
-    obstacle_img_surface = pygame.image.load(image, namehint="png")
-    # TODO: test obstacle sizes to see which ones fit better in the program
-    obstacle_img_surface = pygame.transform.scale(obstacle_img_surface, (30, 30))
+
+    # eventually this function will be used to call the proper obstacle queue depending on the song that is playing
+    obstacle_queue = obstacle_queues.create_queue("song_name")
+    # create an obstacles object, constructor obstacle_queue
+    # load the obstacle image so it can be displayed on screen
+    obstacles = Obstacles(obstacle_queue)
+    obstacles.load_obstacle_img()
 
     # naming the window and setting the icon
     pygame.display.set_caption("IShowSpeed on a 5x5 grid")
     pygame.display.set_icon(img_surface)
-
-    # obstacles are defined by the timestamp in milliseconds and which grid space it should appear on
-    # this is then added to a queue of obstacles that should appear
-    obstacle_queue = obstacle_queues.create_queue("placeholder")
-    obstacles = Obstacles(obstacle_img_surface, obstacle_queue)
+    
     # FPS of the game
     clock.tick(60)
-    # list of obstacles present on the screen, a list of Rect coordinates
-    # TODO: uncomment this if the changes we make do not work
-    # obstacle_list = []
     # game running logic
     running = True
     while running:
@@ -66,8 +60,7 @@ def main():
         # test code that I'm keeping here for now
         # checktime = music.check_playback_time()
         # print(checktime)
-        
-        # update the screen, 
+        # update the screen
         pygame.display.flip()
     
     close = False
