@@ -55,14 +55,20 @@ def main():
         # check if an obstacle should spawn
         obstacles.spawn_obstacle(screen)
         # check if speed is interacting with an obstacle
-        running = obstacles.check_hitbox_interaction(player_hurtbox)
+        keep_running = obstacles.check_hitbox_interaction(player_hurtbox)
         
+        # exit the running loop if the user encounters an obstacle
+        if keep_running == False:
+            running = False
         # test code that I'm keeping here for now
         # checktime = music.check_playback_time()
         # print(checktime)
         # update the screen
         pygame.display.flip()
     
+    # TODO: this works for when the user encounters an obstacle
+    # does not work when the user tries to exit normally (requires two clicks of the X button)
+    # fix this pl0x
     close = False
     while not close:
         for event in pygame.event.get():
