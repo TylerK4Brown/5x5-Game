@@ -6,6 +6,7 @@
 import pygame
 from collections import deque
 from initialize_game import music
+from game_over import end_game
 
 class Obstacles:
     # obstacle_list and obstacle_image defined as class variables
@@ -47,14 +48,15 @@ class Obstacles:
     # if there are no obstacles in the obstacle list at the moment, return True
     # if any hitboxes overlap, return False to kill the program's running loop
     # if there is no overlap, return True
-    def check_hitbox_interaction(self, player_hurtbox):
+    def check_hitbox_interaction(self, player_hurtbox, screen):
         if len(self.obstacle_list) == 0:
             return True
         
         if pygame.Rect.collidelist(player_hurtbox, self.obstacle_list) != -1:
             print(f"Collision detected at {player_hurtbox}")
+            end_game.game_over(screen)
             return False
-        
+    
         return True
     
     

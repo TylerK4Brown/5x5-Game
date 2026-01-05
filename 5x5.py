@@ -50,7 +50,7 @@ def main():
         # check if an obstacle should spawn
         obstacles.spawn_obstacle(screen)
         # check if speed is interacting with an obstacle
-        keep_running = obstacles.check_hitbox_interaction(player_hurtbox)
+        keep_running = obstacles.check_hitbox_interaction(player_hurtbox, screen)
         
         # exit the running loop if the user encounters an obstacle
         if keep_running == False:
