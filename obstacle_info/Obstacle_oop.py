@@ -32,7 +32,7 @@ class Obstacles:
             # draws the hitbox to the screen (not necessary later on - just for visuals rn)
             pygame.draw.rect(screen, "red", obstacle_hitbox, width=2)
             self.obstacle_list.append(obstacle_hitbox)
-            print(self.obstacle_list)
+            #print(self.obstacle_list)
     
     def check_hitbox_interaction(self, player_hurtbox):
         if len(self.obstacle_list) == 0:
