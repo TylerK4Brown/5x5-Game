@@ -5,7 +5,7 @@
 import pygame
 
 class Player:
-    # class variable that defines the player's icon
+    # class variable that defines the player's icon image
     player_img_surface = None
     
     # constructor for the class Player

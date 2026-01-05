@@ -54,7 +54,7 @@ class Obstacles:
         
         if pygame.Rect.collidelist(player_hurtbox, self.obstacle_list) != -1:
             print(f"Collision detected at {player_hurtbox}")
-            end_game.game_over(screen)
+            end_game.game_over(screen, player_hurtbox)
             return False
     
         return True

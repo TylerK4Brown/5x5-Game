@@ -3,10 +3,12 @@
 import pygame
 from time import sleep
 
-def game_over(screen):
+def game_over(screen, player_hurtbox):
     # stop the music when the user encounters an obstacle
     # sleep the console for 5 seconds
     pygame.mixer.music.stop()
+    pygame.draw.rect(screen, "red", player_hurtbox)
+    pygame.display.flip()
     sleep(0.5)
     
     # fill the screen with a black color
