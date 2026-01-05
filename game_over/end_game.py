@@ -7,9 +7,13 @@ def game_over(screen, player_hurtbox):
     # stop the music when the user encounters an obstacle
     # sleep the console for 5 seconds
     pygame.mixer.music.stop()
+    
+    # plays a pingas death sound and spawns a red square on the grid space where the user died
+    pygame.mixer.music.load("songs\\pingas_death.mp3")
+    pygame.mixer.music.play(start=0.1)
     pygame.draw.rect(screen, "red", player_hurtbox)
     pygame.display.flip()
-    sleep(0.5)
+    sleep(0.8)
     
     # fill the screen with a black color
     # create a new text object, get the rect definition of the text
