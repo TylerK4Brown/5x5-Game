@@ -1,4 +1,7 @@
-# test change to the branch
+# This branch takes an object-oriented approach to the functional implementation in branch "main"
+# The current functionality spawns pingas obstacles to the rhythm of a song and ends the game when the user runs into an obstacle
+# This remains the same in this version, but the obstacles and player information are now defined in classes
+# Last update: 1/5/2025
 import pygame
 import initialize_game.music as music
 import obstacle_info.obstacle_queues as obstacle_queues
@@ -15,19 +18,19 @@ def main():
     # (this used to be randomized but I synced up the appearing obstacles with this song)
     songpath = ["songs\\pygamesong2.mp3"]
     music.song_playback(songpath)
+    # TODO: view the below comment
     # eventually this function will be used to call the proper obstacle queue depending on the song that is playing
     obstacle_queue = obstacle_queues.create_queue("song_name")
     # player position will be set to the middle of the screen
     player_position = [screen.get_width() / 2, screen.get_height() / 2]
     player = Player(player_position, screen)
     # create an obstacles object, constructor obstacle_queue
-    # load the obstacle image so it can be displayed on screen
+    # load the obstacle image so it can be displayed on screen (updates the class variable)
     obstacles = Obstacles(obstacle_queue)
     obstacles.load_obstacle_img()
 
-    # naming the window and setting the icon
-    pygame.display.set_caption("IShowSpeed on a 5x5 grid")
-    #pygame.display.set_icon(img_surface)
+    # naming the window
+    pygame.display.set_caption("IShowSpeed on a 5x5 grid") 
     
     # FPS of the game
     clock.tick(60)
@@ -35,6 +38,7 @@ def main():
     running = True
     while running:
         # user clicked the X to close the window
+        # TODO: this is currently bugged - you have to click X twice to exit the game successfully
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False

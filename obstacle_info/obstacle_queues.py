@@ -1,5 +1,11 @@
+# Creates a queue out of the listing of obstacles that should appear at a given time
+# Each queue element operates as follows:
+# (time_in_milliseconds, [coordinate x, coordinate y])
+#
+# TODO: eventually, queue elements will look like this:
+# (time_in_milliseconds, obstacle_type, obstacle_stage, [coordinate x, coordinate y])
 from collections import deque
-# returns an ordered list of queue items for each song
+
 def create_queue(song_name):
     # song_name is not used yet since we only have obstacles appearing for one song
     py_game_song_1_queue = [(100, [200, 200]), (737, [200, 100]), (1164, [200, 300]), (1680, [400, 100]), 
