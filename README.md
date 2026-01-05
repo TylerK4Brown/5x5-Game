@@ -10,11 +10,13 @@
 2. Once you have the above requirements installed, you will need the following files to run the game properly:
 # 
  - 5x5.py (main file, you'll run the game using this file)
- - obstacles.py
- - player_movement.py
- - speedsuprised.png (so that the icon will load properly)
+ - **__game_over__** folder
  - **__initialize_game__** folder
+ - **__obstacle-info__** folder
+ - **__player_info__** folder
  - **__songs__** folder
+ - speedsuprised.png (so that the icon will load properly)
+ - pingas_obstacle.png (loads the obstacles on the screen)
 #
 3. Use the command python3.12 5x5.py to run the game
 4. Enjoy..?
