@@ -3,6 +3,7 @@
 # This creates a class that makes it so that this information is contained in one space
 
 import pygame
+import pygame.gfxdraw
 
 class Player:
     # class variable that defines the player's icon image
@@ -24,7 +25,7 @@ class Player:
         
         # defines and draws the hitbox for Speed using a rect
         player_hurtbox = pygame.Rect(self.player_position[0] - 15, self.player_position[1] - 15, 30, 30)
-        pygame.draw.rect(self.screen, "green", player_hurtbox, width=2)
+        pygame.gfxdraw.rectangle(self.screen, player_hurtbox, (0, 255, 0, 255))
         return player_hurtbox
     
     # moves the player across the grid spaces, updates the player_position
