@@ -18,7 +18,7 @@ class Player:
     # function that draws the player to the screen
     # this function is called in the game's running loop so that the player's position and hurtbox locations are updated frequently
     def draw_player(self):
-        image = "speedsuprised.png"
+        image = "images\\speedsuprised.png"
         self.player_img_surface = pygame.image.load(image, namehint="png")
         self.player_img_surface = pygame.transform.scale(self.player_img_surface, (30, 30))
          # draw the player icon at the middle of the screen

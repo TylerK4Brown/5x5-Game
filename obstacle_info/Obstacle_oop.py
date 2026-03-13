@@ -25,7 +25,7 @@ class Obstacles:
     # function that loads the obstacle image
     # updates the obstacle_img_surface class variable to be used in spawn_obstacle
     def load_obstacle_img(self):
-        image = "pingas_obstacle.png"
+        image = "images\\pingas_obstacle.png"
         self.obstacle_img_surface = pygame.image.load(image, namehint="png")
         self.obstacle_img_surface = pygame.transform.scale(self.obstacle_img_surface, (30, 30))
     
