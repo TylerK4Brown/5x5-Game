@@ -12,6 +12,7 @@ from game_over import end_game
 class Obstacles:
     # obstacle_list and obstacle_image defined as class variables
     obstacle_list = []
+    warning_list = []
     obstacle_img_surface = None
     
     # idea:
@@ -46,13 +47,14 @@ class Obstacles:
             # NEW IMPLEMENTATION:
             # queue now holds a "warning" or "obstacle" indicator
             # if the current value is "warning", draw a yellow square - draw a red square otherwise
-            obstacle_warning_space = pygame.Rect(grid_space[0] - 15, grid_space[1] - 15, 30, 30)
+            obstacle_space = pygame.Rect(grid_space[0] - 15, grid_space[1] - 15, 30, 30)
             if obstacle_definition[1] != "warning":
                 screen.blit(self.obstacle_img_surface, (grid_space[0] - 15, grid_space[1] - 15))
-                pygame.gfxdraw.rectangle(screen, obstacle_warning_space, (255, 0, 0, 255))
-                self.obstacle_list.append(obstacle_warning_space)
+                pygame.gfxdraw.rectangle(screen, obstacle_space, (255, 0, 0, 255))
+                self.obstacle_list.append(obstacle_space)
             else:
-                pygame.gfxdraw.box(screen, obstacle_warning_space, (255, 255, 0, 128))
+                pygame.gfxdraw.box(screen, obstacle_space, (255, 255, 0, 128))
+                self.warning_list.append(obstacle_space)
             
     # checks to see if the player's current position interacts with the current list of obstacles
     # if there are no obstacles in the obstacle list at the moment, return True
@@ -62,12 +64,16 @@ class Obstacles:
         if len(self.obstacle_list) == 0:
             return True
         
+        # print(self.obstacle_list)
         if pygame.Rect.collidelist(player_hurtbox, self.obstacle_list) != -1:
             print(f"Collision detected at {player_hurtbox}")
             end_game.game_over(screen, player_hurtbox)
             return False
     
         return True
+    
+    def get_warning_list(self):
+        return self.warning_list
     
     
         

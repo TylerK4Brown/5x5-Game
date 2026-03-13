@@ -45,8 +45,8 @@ def main():
 
         # continuously draw the player to the screen
         player_hurtbox = player.draw_player()
-        # move the player with WASD controls
-        player.move_player()
+        # move the player with WASD controls, redraw spaces that have been traced over by the player
+        player.move_player(obstacles.get_warning_list())
         # check if an obstacle should spawn
         obstacles.spawn_obstacle(screen)
         # check if speed is interacting with an obstacle
