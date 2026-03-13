@@ -38,10 +38,11 @@ def main():
     running = True
     while running:
         # user clicked the X to close the window
-        # TODO: this is currently bugged - you have to click X twice to exit the game successfully
+        # TODO: this closes with an error since the running loop closes unexpectly - causes the game to close ungracefully
+        # figure out how to make this graceful
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                running = False
+                pygame.quit()
 
         # continuously draw the player to the screen
         player_hurtbox = player.draw_player()
@@ -58,15 +59,12 @@ def main():
         # update the screen
         pygame.display.flip()
     
-    # TODO: this works for when the user encounters an obstacle
-    # does not work when the user tries to exit normally (requires two clicks of the X button)
-    # fix this pl0x
     close = False
     while not close:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 close = True
     pygame.quit()
-
+    
 if __name__ == "__main__":
     main()
