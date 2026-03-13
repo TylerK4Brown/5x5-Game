@@ -1,7 +1,6 @@
 # This branch takes an object-oriented approach to the functional implementation in branch "main"
 # The current functionality spawns pingas obstacles to the rhythm of a song and ends the game when the user runs into an obstacle
 # This remains the same in this version, but the obstacles and player information are now defined in classes
-# Last update: 1/5/2025
 import pygame
 import initialize_game.music as music
 import obstacle_info.obstacle_queues as obstacle_queues
@@ -16,16 +15,15 @@ def main():
 
     # select which song to play
     # (this used to be randomized but I synced up the appearing obstacles with this song)
-    songpath = ["songs\\pygamesong2.mp3"]
+    songpath = ["sounds\\songs\\pygamesong2.mp3"]
     music.song_playback(songpath)
-    # TODO: view the below comment
-    # eventually this function will be used to call the proper obstacle queue depending on the song that is playing
+    # TODO: eventually this function will be used to call the proper obstacle queue depending on the song that is playing
     obstacle_queue = obstacle_queues.create_queue("song_name")
     # player position will be set to the middle of the screen
     player_position = [screen.get_width() / 2, screen.get_height() / 2]
     player = Player(player_position, screen)
     # create an obstacles object, constructor obstacle_queue
-    # load the obstacle image so it can be displayed on screen (updates the class variable)
+    # load the obstacle image so it can be displayed on screen (updates the class member)
     obstacles = Obstacles(obstacle_queue)
     obstacles.load_obstacle_img()
 
@@ -59,6 +57,8 @@ def main():
         # update the screen
         pygame.display.flip()
     
+    # ensures the game doesn't close unless the user clicks on the X button
+    # TODO: add logic that restarts the game upon the user clicking a "restart" button
     close = False
     while not close:
         for event in pygame.event.get():

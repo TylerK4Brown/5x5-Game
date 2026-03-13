@@ -9,7 +9,7 @@ def game_over(screen, player_hurtbox):
     pygame.mixer.music.stop()
     
     # plays a pingas death sound and spawns a red square on the grid space where the user died
-    pygame.mixer.music.load("songs\\pingas_death.mp3")
+    pygame.mixer.music.load("sounds\\death_sound\\pingas_death.mp3")
     pygame.mixer.music.play(start=0.1)
     pygame.draw.rect(screen, "red", player_hurtbox)
     pygame.display.flip()
