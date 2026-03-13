@@ -1,3 +1,5 @@
+# Initializes pygame requirements in order for the game to run properly
+
 import pygame
 from time import sleep
 import random
@@ -6,7 +8,7 @@ def pygame_initialize():
     pygame.init()
     # set the size of the screen
     screen = pygame.display.set_mode(size=(600,400))
-    # set the FPS of the screen
+    # creates a Clock object which will later be responsible for setting up the FPS of the game
     clock = pygame.time.Clock()
     return screen, clock
 

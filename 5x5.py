@@ -1,8 +1,13 @@
-import pygame, initialize_game.music as music, player_movement
+# This branch takes an object-oriented approach to the functional implementation in branch "main"
+# The current functionality spawns pingas obstacles to the rhythm of a song and ends the game when the user runs into an obstacle
+# This remains the same in this version, but the obstacles and player information are now defined in classes
+# Last update: 1/5/2025
+import pygame
+import initialize_game.music as music
 import obstacle_info.obstacle_queues as obstacle_queues
 import initialize_game.game_initializer as initializer
-import obstacle_info.obstacles as obstacles
-import random
+from obstacle_info.Obstacle_oop import Obstacles
+from player_info.Player_oop import Player
 
 def main():
     # uses game_initializer module to define the screen dimensions, FPS, and draw the grid to the screen
@@ -10,69 +15,57 @@ def main():
     initializer.draw_5x5_grid(screen)
 
     # select which song to play
-    # (this used to be randomized but I synced up the appearing speeds with this song)
+    # (this used to be randomized but I synced up the appearing obstacles with this song)
     songpath = ["songs\\pygamesong2.mp3"]
     music.song_playback(songpath)
+    # TODO: view the below comment
+    # eventually this function will be used to call the proper obstacle queue depending on the song that is playing
+    obstacle_queue = obstacle_queues.create_queue("song_name")
     # player position will be set to the middle of the screen
-    player_pos = [screen.get_width() / 2, screen.get_height() / 2]
+    player_position = [screen.get_width() / 2, screen.get_height() / 2]
+    player = Player(player_position, screen)
+    # create an obstacles object, constructor obstacle_queue
+    # load the obstacle image so it can be displayed on screen (updates the class variable)
+    obstacles = Obstacles(obstacle_queue)
+    obstacles.load_obstacle_img()
 
-    # load speed icon, transform speed so that he fits onto the grid
-    img_surface = pygame.image.load("speedsuprised.png", namehint="png")
-    img_surface = pygame.transform.scale(img_surface, (30, 30))
-
-    # load the obstacle image to the screen (right now it is pingas)
-    image = "pingas_obstacle.png"
-    obstacle_img_surface = pygame.image.load(image, namehint="png")
-    # TODO: test obstacle sizes to see which ones fit better in the program
-    obstacle_img_surface = pygame.transform.scale(obstacle_img_surface, (30, 30))
-
-    # naming the window and setting the icon
-    pygame.display.set_caption("IShowSpeed on a 5x5 grid")
-    pygame.display.set_icon(img_surface)
-
-    # obstacles are defined by the timestamp in milliseconds and which grid space it should appear on
-    # this is then added to a queue of obstacles that should appear
-    obstacle_def = obstacle_queues.queue_storage("placeholder")
-    obstacle_queue = obstacles.queue_item(obstacle_def)
+    # naming the window
+    pygame.display.set_caption("IShowSpeed on a 5x5 grid") 
+    
     # FPS of the game
     clock.tick(60)
-    # list of obstacles present on the screen, a list of Rect coordinates
-    obstacle_list = []
     # game running logic
     running = True
     while running:
         # user clicked the X to close the window
+        # TODO: this is currently bugged - you have to click X twice to exit the game successfully
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
-                
-        # draw the player icon at the middle of the screen
-        screen.blit(img_surface, (player_pos[0] - 15, player_pos[1] - 15))
-        
-        # defines and draws the hitbox for Speed using a rect
-        hitbox = pygame.Rect(player_pos[0] - 15, player_pos[1] - 15, 30, 30)
-        pygame.draw.rect(screen, "green", hitbox, width=2)
-        
+
+        # continuously draw the player to the screen
+        player_hurtbox = player.draw_player()
         # move the player with WASD controls
-        player_movement.move_player(player_pos, screen)
+        player.move_player()
         # check if an obstacle should spawn
-        obstacle_list = obstacles.check_obstacle(obstacle_queue, obstacle_img_surface, screen, obstacle_list)
+        obstacles.spawn_obstacle(screen)
         # check if speed is interacting with an obstacle
-        obstacle_list, running = obstacles.check_hitbox_interaction(hitbox, obstacle_list, screen, running)
+        keep_running = obstacles.check_hitbox_interaction(player_hurtbox, screen)
         
-        # test code that I'm keeping here for now
-        # checktime = music.check_playback_time()
-        # print(checktime)
-        
-        # update the screen, 
+        # exit the running loop if the user encounters an obstacle
+        if keep_running == False:
+            running = False
+        # update the screen
         pygame.display.flip()
     
+    # TODO: this works for when the user encounters an obstacle
+    # does not work when the user tries to exit normally (requires two clicks of the X button)
+    # fix this pl0x
     close = False
     while not close:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 close = True
-    
     pygame.quit()
 
 if __name__ == "__main__":
