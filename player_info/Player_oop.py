@@ -45,6 +45,7 @@ class Player:
                 Player.redraw(self, warning_list)
                 self.player_position[1] -= 50
                 pygame.display.flip()
+                # print(self.player_position)
         
         if keys[pygame.K_s]:
             if self.player_position[1] >= 300:
@@ -53,6 +54,7 @@ class Player:
                 Player.redraw(self, warning_list)
                 self.player_position[1] += 50
                 pygame.display.flip()
+                # print(self.player_position)
             
         if keys[pygame.K_a]:
             if self.player_position[0] <= 200:
@@ -61,6 +63,7 @@ class Player:
                 Player.redraw(self, warning_list)
                 self.player_position[0] -= 50
                 pygame.display.flip()
+                # print(self.player_position)
                 
         if keys[pygame.K_d]:
             if self.player_position[0] >= 400:
@@ -69,6 +72,7 @@ class Player:
                 Player.redraw(self, warning_list)
                 self.player_position[0] += 50
                 pygame.display.flip()
+                # print(self.player_position)
     
     # redraws a grid space after the player moves off of it
     def redraw(self, warning_list):

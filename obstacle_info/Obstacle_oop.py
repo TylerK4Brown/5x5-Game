@@ -2,7 +2,6 @@
 # In the functional implementation, the obstacle_queue and obstacle_list were propegated through main
 # This pushes those variables into a class structure instead
 # Both implementations work, this might be better?
-
 import pygame
 import pygame.gfxdraw
 from collections import deque
@@ -40,21 +39,41 @@ class Obstacles:
             # obstacle_definition looks like [x, y]
             obstacle_definition = self.obstacle_queue.popleft()
             grid_space = obstacle_definition[2]
-            # OLD IMPLEMENTATION:
-            # add the obstacle to the screen, create a hitbox rect at that grid space
-            # screen.blit(self.obstacle_img_surface, (grid_space[0] - 15, grid_space[1] - 15))
             
             # NEW IMPLEMENTATION:
-            # queue now holds a "warning" or "obstacle" indicator
-            # if the current value is "warning", draw a yellow square - draw a red square otherwise
-            obstacle_space = pygame.Rect(grid_space[0] - 15, grid_space[1] - 15, 30, 30)
-            if obstacle_definition[1] != "warning":
-                screen.blit(self.obstacle_img_surface, (grid_space[0] - 15, grid_space[1] - 15))
-                pygame.gfxdraw.rectangle(screen, obstacle_space, (255, 0, 0, 255))
-                self.obstacle_list.append(obstacle_space)
+            # queue now holds a "warning", "obstacle" or  indicator
+            # if the current "obstacle_definition" is "obstacle", draw a pingas obstacle - draw a yellow square otherwise
+            # there's also a despawn case that hasn't been implemented yet
+            # UPDATE: queue now holds a nested list at index 2
+            # ^^^ this allows for multiple obstacles to be spawned from one queue entry
+            if len(grid_space) > 1:
+                for coordinates in grid_space:
+                    obstacle_space = pygame.Rect(coordinates[0] - 15, coordinates[1] - 15, 30, 30)
+                    if obstacle_definition[1] == 'obstacle':
+                        screen.blit(self.obstacle_img_surface, (coordinates[0] - 15, coordinates[1] - 15))
+                        pygame.gfxdraw.rectangle(screen, obstacle_space, (255, 0, 0, 255))
+                        self.obstacle_list.append(obstacle_space)
+                        
+                    elif obstacle_definition[1] == 'warning':
+                        pygame.gfxdraw.box(screen, obstacle_space, (255, 255, 0, 128))
+                        self.warning_list.append(obstacle_space)
+                    # This will be the case when the definition = "despawn"
+                    else:
+                        pass
+            # If the grid space isn't greater than 1, then spawn only one obstacle.
             else:
-                pygame.gfxdraw.box(screen, obstacle_space, (255, 255, 0, 128))
-                self.warning_list.append(obstacle_space)
+                obstacle_space = pygame.Rect(grid_space[0] - 15, grid_space[1] - 15, 30, 30)
+                if obstacle_definition[1] == 'obstacle':
+                    screen.blit(self.obstacle_img_surface, (grid_space[0] - 15, grid_space[1] - 15))
+                    pygame.gfxdraw.rectangle(screen, obstacle_space, (255, 0, 0, 255))
+                    self.obstacle_list.append(obstacle_space)
+                
+                elif obstacle_definition[1] == 'warning':
+                    pygame.gfxdraw.box(screen, obstacle_space, (255, 255, 0, 128))
+                    self.warning_list.append(obstacle_space)
+                # This will be the case when the definition = "despawn"
+                else:
+                    pass
             
     # checks to see if the player's current position interacts with the current list of obstacles
     # if there are no obstacles in the obstacle list at the moment, return True
@@ -74,11 +93,3 @@ class Obstacles:
     
     def get_warning_list(self):
         return self.warning_list
-    
-    
-        
-        
-    
-           
-    
-    

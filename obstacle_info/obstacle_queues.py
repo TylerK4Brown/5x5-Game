@@ -8,9 +8,54 @@ from collections import deque
 
 def create_queue(song_name):
     # song_name is not used yet since we only have obstacles appearing for one song
-    py_game_song_1_queue = [(100, "warning", [200, 200]), (737, "obstalce", [200, 100]), (1164, "warning", [200, 300]), (1680, "warning", [400, 100]), 
-    (1930, "warning", [400, 200]), (2200, "obstacle", [400, 300]), (2328, "warning", [300, 100]), (2856, "warning", [250, 150]), 
-    (3293, "warning", [350, 250]), (3780, "warning", [350, 150]), (3940, "warning", [250, 250]), (4170, "warning", [300, 300])]
+    # THIS QUEUE USED TO WORK WITH 600,400 RESOLUTION
+    # WE ARE NOW SWITCHING TO 640x480
+    py_game_song_1_queue = [
+        (100, "warning", [[220, 240], [220, 190], [220, 140], [270, 140]]),
+        (737, "warning", [[370, 340], [420, 340], [420, 290], [420, 240]]),
+        (1164, "obstacle", [[370, 340], [420, 340], [420, 290], [420, 240], [220, 240], [220, 190], [220, 140], [270, 140]]),
+    ]
+    
+    # py_game_song_1_queue = [
+    # (100, "warning", [200, 100]), 
+    # (100, "warning", [200, 150]),
+    # (100, "warning", [200, 200]), 
+    # (100, "warning", [250, 100]), 
+    # (737, "warning", [400, 200]),
+    # (737, "warning", [400, 250]),
+    # (737, "warning", [400, 300]),
+    # (737, "warning", [350, 300]),
+    # (1164, "obstacle", [200, 100]), 
+    # (1164, "obstacle", [200, 150]),
+    # (1164, "obstacle", [200, 200]), 
+    # (1164, "obstacle", [250, 100]), 
+    # (1164, "obstacle", [400, 200]),
+    # (1164, "obstacle", [400, 250]),
+    # (1164, "obstacle", [400, 300]),
+    # (1164, "obstacle", [350, 300]),
+    # (1680, "warning", [350, 150]),
+    # (1680, "warning", [250, 250]),
+    # (1930, "warning", [400, 100]),
+    # (1930, "warning", [200, 300]),
+    # (2200, "warning", [400, 150]),
+    # (2200, "warning", [350, 100]),
+    # (2200, "warning", [200, 250]),
+    # (2200, "warning", [250, 300]),
+    # (2328, "obstacle", [350, 150]),
+    # (2328, "obstacle", [250, 250]),
+    # (2856, "obstacle", [400, 100]),
+    # (2856, "obstacle", [200, 300]),
+    # (3293, "obstacle", [200, 250]),
+    # (3293, "obstacle", [250, 300]),
+    # (3293, "obstacle", [400, 150]),
+    # (3293, "obstacle", [350, 100]),
+    # ] 
+    #  
+    #  
+    # (3293, "warning", [350, 250]), 
+    # (3780, "warning", [350, 150]), 
+    # (3940, "warning", [250, 250]), 
+    # (4170, "warning", [300, 300])
     
     queue = deque(py_game_song_1_queue)
     return queue
