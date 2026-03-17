@@ -7,7 +7,10 @@ import random
 def pygame_initialize():
     pygame.init()
     # set the size of the screen
-    screen = pygame.display.set_mode(size=(640,480))
+    # SCALED flag allows the game resolution to scale to any computer resolution
+    # it looks ugly but it does work!
+    flags = pygame.SCALED
+    screen = pygame.display.set_mode(size=(640,480), flags=flags)
     # creates a Clock object which will later be responsible for setting up the FPS of the game
     clock = pygame.time.Clock()
     return screen, clock
