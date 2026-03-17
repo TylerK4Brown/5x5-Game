@@ -22,6 +22,7 @@ def draw_5x5_grid(screen):
     # loops across the circle positions list
     # prints each circle in a vertical fashion by displaying a circle at position -100 -> 100 for each pos_horizontal
     # TODO: O(n^2) solution we must kill him
+    # Maybe not TODO: actually - this solution is optimal for this methinks
     circle_positions = [-100, -50, 0, 50, 100]
     for pos_horizontal in circle_positions:
         for pos_vertical in circle_positions:
