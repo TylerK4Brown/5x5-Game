@@ -57,9 +57,15 @@ class Obstacles:
                     elif obstacle_definition[1] == 'warning':
                         pygame.gfxdraw.box(screen, obstacle_space, (255, 255, 0, 128))
                         self.warning_list.append(obstacle_space)
-                    # This will be the case when the definition = "despawn"
+                    # Else - obstacle_definitions = 'despawn', so draw a regular box back onto the screen
+                    # Remove the hitbox and warning Rects from the obstacle/warning_lists
+                    # TODO: code is repetitive, this will need to be refactored
                     else:
-                        pass
+                        pygame.draw.rect(screen, "black", obstacle_space, width=0)
+                        pygame.draw.circle(screen, "white", [coordinates[0], coordinates[1]], 5)
+                        remove_obstacle = pygame.Rect(coordinates[0] - 15, coordinates[1] - 15, 30, 30)
+                        self.obstacle_list.remove(remove_obstacle)
+                        self.warning_list.remove(remove_obstacle)
             # If the grid space isn't greater than 1, then spawn only one obstacle.
             else:
                 obstacle_space = pygame.Rect(grid_space[0] - 15, grid_space[1] - 15, 30, 30)
@@ -71,9 +77,16 @@ class Obstacles:
                 elif obstacle_definition[1] == 'warning':
                     pygame.gfxdraw.box(screen, obstacle_space, (255, 255, 0, 128))
                     self.warning_list.append(obstacle_space)
-                # This will be the case when the definition = "despawn"
+                # Else - obstacle_definitions = 'despawn', so draw a regular box back onto the screen
+                # Remove the hitbox and warning Rects from the obstacle/warning_lists
+                # TODO: code is repetitive, this will need to be refactored
                 else:
-                    pass
+                    pygame.draw.rect(screen, "black", obstacle_space, width=0)
+                    pygame.draw.circle(screen, "white", [coordinates[0], coordinates[1]], 5)
+                    print(self.obstacle_list)
+                    remove_obstacle = pygame.Rect(coordinates[0] - 15, coordinates[1] - 15, 30, 30)
+                    self.obstacle_list.remove(remove_obstacle)
+                    self.warning_list.remove(remove_obstacle)
             
     # checks to see if the player's current position interacts with the current list of obstacles
     # if there are no obstacles in the obstacle list at the moment, return True
