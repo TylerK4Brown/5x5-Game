@@ -39,7 +39,7 @@ class Player:
         # NEGATIVE VALUES MOVE LEFT/UP, POSITIVE VALUES MOVE RIGHT/DOWN
         keys = pygame.key.get_just_pressed()
         if keys[pygame.K_w]:
-            if self.player_position[1] <= 100:
+            if self.player_position[1] <= 140:
                 pass
             else:
                 Player.redraw(self, warning_list)
@@ -48,7 +48,7 @@ class Player:
                 # print(self.player_position)
         
         if keys[pygame.K_s]:
-            if self.player_position[1] >= 300:
+            if self.player_position[1] >= 340:
                 pass
             else:
                 Player.redraw(self, warning_list)
@@ -57,7 +57,7 @@ class Player:
                 # print(self.player_position)
             
         if keys[pygame.K_a]:
-            if self.player_position[0] <= 200:
+            if self.player_position[0] <= 220:
                 pass
             else:
                 Player.redraw(self, warning_list)
@@ -66,7 +66,7 @@ class Player:
                 # print(self.player_position)
                 
         if keys[pygame.K_d]:
-            if self.player_position[0] >= 400:
+            if self.player_position[0] >= 420:
                 pass
             else:
                 Player.redraw(self, warning_list)
